@@ -6,6 +6,7 @@ const fileUpload = require('express-fileupload');
 const dbConnection = require('./database/dbConnection');
 
 const messageRouter = require("./routers/messageRouter");
+const userRouter = require("./routers/userRouter");
 const { errorMiddleware } = require('./middlewares/errorMiddleware');
 
 const app = express()
@@ -30,6 +31,7 @@ app.use(fileUpload({
 
 // Routers
 app.use("/api/v1/message", messageRouter)
+app.use("/api/v1/user", userRouter)
 
 dbConnection()
 
