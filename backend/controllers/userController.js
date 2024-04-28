@@ -60,4 +60,25 @@ const loginUser = catchAsyncErrors(async (req, res, next) => {
     // })
 })
 
-module.exports = { patientRgister, loginUser }
+
+const addNewAdmin = catchAsyncErrors(async (req, res, next) => {
+    const { firstName, lastName, email, phone, cnic, dob, password, gender } = req.body
+
+    if (!firstName || !lastName || !email || !phone || !cnic || !dob || !password || !gender) {
+        return next(new ErrorHandler("Please fill full form", 400))
+    }
+
+    let isRegistered = await User.findOne({ email })
+
+    if (isRegistered) {
+        return next(new ErrorHandler("Admin With This Email Already Exists", 400))
+    }
+
+    const admin = await User.create({ firstName, lastName, email, phone, cnic, dob, password, gender, role: "Admin" })
+    res.status(200).json({
+        success: true,
+        message: "Admin Registered Successfully"
+    })
+})
+
+module.exports = { patientRgister, loginUser, addNewAdmin }
