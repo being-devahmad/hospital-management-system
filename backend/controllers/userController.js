@@ -81,4 +81,28 @@ const addNewAdmin = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
-module.exports = { patientRgister, loginUser, addNewAdmin }
+
+const getAllDoctors = catchAsyncErrors(async (req, res, next) => {
+    const doctors = await User.find({ role: "Doctor" })
+    res.status(200).json({
+        success: true,
+        doctors
+    })
+})
+
+const getUserDetails = catchAsyncErrors(async (req, res) => {
+    const user = req.user
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+const logoutAdmin = catchAsyncErrors(async (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "Admin Logged Out Successfully"
+    })
+})
+
+module.exports = { patientRgister, loginUser, addNewAdmin, getAllDoctors, getUserDetails, logoutAdmin }

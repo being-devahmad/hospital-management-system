@@ -42,7 +42,7 @@ const isPatientAuthenticated = catchAsyncErrors(async (req, res, next) => {
 
     // if we remove below this whole part from line 20 to line 27 , then this whole is authentication only otherwise it's both authentication and authorization
 
-    if (req.user.role !== "Patient") {
+    if (req.user.role !== "patient") {
         return next(
             new ErrorHandler(
                 `${req.user.role} is not authorized for this resource !`,
